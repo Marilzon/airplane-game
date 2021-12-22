@@ -1,0 +1,41 @@
+@font-face {
+  font-family: Title;
+  src: url(../assets/fonts/ANODETONOONE.TTF);
+}
+
+#main-container {
+  width: 960px;
+  height: auto;
+  position: relative;
+  margin: 0 auto;
+}
+
+#game-container {
+  width: 960px;
+  height: 630px;
+  background-image: url(../assets/images/fundo_game.jpg);
+  border-color: #FFF;
+  border-style: solid;
+}
+
+#start-container {
+  width: 360px;
+  height: 220px;
+  background-color: #FFF;
+  margin: 56px auto;
+  text-align: center;
+  padding: 12px;
+  border-radius: 3.5px;
+}
+
+#game-title {
+  font-family: Title;
+  font-size: 40px;
+  color: #603a03;
+}
+
+body {
+  background-image: url(../assets/images/fundo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}

@@ -3,6 +3,12 @@
   src: url(../assets/fonts/ANODETONOONE.TTF);
 }
 
+body {
+  background-image: url(../assets/images/fundo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 #main-container {
   width: 960px;
   height: auto;
@@ -34,8 +40,40 @@
   color: #603a03;
 }
 
-body {
-  background-image: url(../assets/images/fundo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
+#player {
+  width: 256px;
+  height: 66px;
+  position: absolute;
+  left: 8px;
+  top: 179px;
+  background-image: url(../assets/images/apache.png);
 }
+
+#enemy1 {
+  width: 256px;
+  height: 66px;
+  position: absolute;
+  left: 689px;
+  top: 253px;
+  background-image: url(../assets/images/inimigo1.png);
+}
+
+#enemy2 {
+  width: 165px;
+  height: 70px;
+  position: absolute;
+  left: 775px;
+  top: 447px;
+  background-image: url(../assets/images/inimigo2.png);
+}
+
+#friend {
+  width: 165px;
+  height: 70px;
+  position: absolute;
+  left: 775px;
+  top: 447px;
+  background-image: url(../assets/images/inimigo2.png);
+}
+
+

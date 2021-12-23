@@ -68,12 +68,12 @@ body {
 }
 
 #friend {
-  width: 165px;
-  height: 70px;
-  position: absolute;
-  left: 775px;
-  top: 447px;
-  background-image: url(../assets/images/inimigo2.png);
+	width: 44px;
+	height: 51px;
+	position: absolute;
+	left: 10px;
+	top: 464px;
+  background-image: url(../assets/images/amigo.png);
 }
 
 

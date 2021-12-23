@@ -1,0 +1,24 @@
+.animationApache {
+  background-image: url(../assets/images/apache.png);
+  animation: playApache .5s steps(2) infinite;
+}
+
+.animationEnemy1 {
+  background-image: url(../assets/images/inimigo1.png);
+  animation: playApache .5s steps(2) infinite;
+}
+
+.animationFriend {
+  background-image: url(../assets/images/amigo.png);
+  animation: playFriend .9s steps(12) infinite;
+}
+
+@keyframes playApache {
+  from { background-position: 0px; }
+  to { background-position: -512px; }
+}
+
+@keyframes playFriend {
+  from { background-position: 0px; }
+  to { background-position: -528px; }
+}

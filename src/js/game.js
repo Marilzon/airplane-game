@@ -37,10 +37,17 @@ function start() {
     if (game.press[KEY.W]) {
       let top = parseInt($(player).css("top"));
       $(player).css("top", top - 10);
+      if (top <= 0) {
+        $(player).css("top", top + 10);
+      }
     }
+
     if (game.press[KEY.S]) {
       let top = parseInt($(player).css("top"));
       $(player).css("top", top + 10);
+      if (top >= 432) {
+        $(player).css("top", top - 10);
+      }
     }
 
     if (game.press[KEY.D]) {

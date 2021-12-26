@@ -1,11 +1,11 @@
 .animationApache {
   background-image: url(../assets/images/apache.png);
-  animation: playApache .5s steps(2) infinite;
+  animation: playApache .4s steps(2) infinite;
 }
 
 .animationEnemy1 {
   background-image: url(../assets/images/inimigo1.png);
-  animation: playApache .5s steps(2) infinite;
+  animation: playApache .4s steps(2) infinite;
 }
 
 .animationFriend {

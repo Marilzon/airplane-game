@@ -16,6 +16,8 @@ function start() {
     D: 68
   }
 
+  let velocity = 5;
+  let positionY = parseInt(Math.random() * 334);
   game.press = [];
 
   $(document).keydown((event) => {
@@ -55,9 +57,48 @@ function start() {
     }
   }
 
+  function moveEnemy1() {
+    let enemy1 = document.querySelector("#enemy1");
+    let positionX = parseInt($(enemy1).css("left"));
+
+    $(enemy1).css("left", positionX - velocity);
+    $(enemy1).css("top", positionY);
+
+    if (positionX <= 0) {
+      positionY = parseInt(Math.random() * 334);
+      $(enemy1).css("left", 694);
+      $(enemy1).css("top", positionY);
+    }
+  }
+
+  function moveEnemy2() {
+    let enemy2 = document.querySelector("#enemy2");
+    let positionX = parseInt($(enemy2).css("left"));
+
+    $(enemy2).css("left", positionX - 3);
+
+    if (positionX <= 0) {
+      $(enemy2).css("left", 755);
+    }
+  }
+
+  function moveFriend() {
+    let friend = document.querySelector("#friend");
+    let positionX = parseInt($(friend).css("left"));
+
+    $(friend).css("left", positionX + 1);
+
+    if (positionX > 906) {
+      $(friend).css("left", 0);
+    }
+  }
+
   function loop() {
     moveBackground();
-    movePlayer()
+    movePlayer();
+    moveEnemy1();
+    moveEnemy2();
+    moveFriend();
   }
 
   game.timer = setInterval(loop, 30);

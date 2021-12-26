@@ -2,12 +2,9 @@ const startContainer = document.querySelector("#start-container");
 const gameContainer = document.querySelector("#game-container");
 
 function start() {
-
-  $(startContainer).hide();
-  $(gameContainer).append(`<div class="animationApache" id="player"></div>`);
-  $(gameContainer).append(`<div class="animationEnemy1" id="enemy1"></div>`);
-  $(gameContainer).append(`<div id="enemy2"></div>`);
-  $(gameContainer).append(`<div class="animationFriend" id="friend"></div>`);
+  let velocity = 5;
+  let positionY = parseInt(Math.random() * 334);
+  let letsShot = true;
 
   const game = {};
   const KEY = {
@@ -16,8 +13,13 @@ function start() {
     D: 68
   }
 
-  let velocity = 5;
-  let positionY = parseInt(Math.random() * 334);
+
+  $(startContainer).hide();
+  $(gameContainer).append(`<div class="animationApache" id="player"></div>`);
+  $(gameContainer).append(`<div class="animationEnemy1" id="enemy1"></div>`);
+  $(gameContainer).append(`<div id="enemy2"></div>`);
+  $(gameContainer).append(`<div class="animationFriend" id="friend"></div>`);
+
   game.press = [];
 
   $(document).keydown((event) => {
@@ -34,8 +36,6 @@ function start() {
   }
 
   function movePlayer() {
-    let player = document.querySelector("#player");
-
     if (game.press[KEY.W]) {
       let top = parseInt($(player).css("top"));
       $(player).css("top", top - 10);
@@ -53,7 +53,7 @@ function start() {
     }
 
     if (game.press[KEY.D]) {
-
+      shot();
     }
   }
 
@@ -101,6 +101,35 @@ function start() {
     moveFriend();
   }
 
+  function shot() {
+    if (letsShot === true) {
+
+      letsShot = false;
+
+      let top = parseInt($("#player").css("top"))
+      let positionX = parseInt($("#player").css("left"))
+      let shotX = positionX + 190;
+      let topShot = top + 37;
+
+      $("#game-container").append(`<div id="fire"></div>`);
+      $("#fire").css("top", topShot);
+      $("#fire").css("left", shotX);
+
+      var timeShot = window.setInterval(executeShot, 30);
+    }
+
+    function executeShot() {
+      let positionX = parseInt($("#fire").css("left"));
+      $("#fire").css("left", positionX + 15);
+
+      if (positionX > 900) {
+        window.clearInterval(timeShot);
+        timeShot = null;
+        $("#fire").remove();
+        letsShot = true;
+      }
+    }
+  }
   game.timer = setInterval(loop, 30);
 }
 

@@ -82,3 +82,9 @@ body {
   position: absolute;
   background-image: url(../assets/images/disparo.png);
 }
+
+#explosion {
+  width: 15px;
+  height: 87px;
+  position: absolute;
+}

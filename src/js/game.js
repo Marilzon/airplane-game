@@ -13,7 +13,6 @@ function start() {
     D: 68
   }
 
-
   $(startContainer).hide();
   $(gameContainer).append(`<div class="animationApache" id="player"></div>`);
   $(gameContainer).append(`<div class="animationEnemy1" id="enemy1"></div>`);
@@ -93,21 +92,59 @@ function start() {
     }
   }
 
+  function collision() {
+    let collisionPlayerEnemy1 = ($("#player").collision($("#enemy1")));
+
+    if (collisionPlayerEnemy1.length > 0) {
+      let enemy1X = parseInt($("#enemy1").css("left"));
+      let enemy1Y = parseInt($("#enemy1").css("top"));
+
+      explosionOne(enemy1X, enemy1Y);
+
+      positionY = parseInt(Math.random() * 334);
+      $("#enemy1").css("left", 694);
+      $("#enemy1").css("top", positionY);
+    }
+  }
+
+  function explosionOne(enemy1X, enemy1Y) {
+    $(gameContainer).append(`<div id="explosion"></div>`);
+    $("#explosion").css(`background-image`, `url(src/assets/images/explosao.png)`);
+
+    let div =$("#explosion");
+
+    div.css("top", enemy1Y);
+    div.css("left", enemy1X);
+    div.animate({
+      width:200, opacity:0
+    }, "slow");
+
+    let timeExplosion = window.setInterval(removeExplosion, 1000);
+      function removeExplosion() {
+        div.remove();
+        window.clearInterval(timeExplosion);
+        timeExplosion = null;
+      }
+    }
+
   function loop() {
     moveBackground();
     movePlayer();
     moveEnemy1();
     moveEnemy2();
     moveFriend();
+    collision();
   }
 
   function shot() {
+    let timeShot;
+
     if (letsShot === true) {
 
       letsShot = false;
 
-      let top = parseInt($("#player").css("top"))
-      let positionX = parseInt($("#player").css("left"))
+      let top = parseInt($("#player").css("top"));
+      let positionX = parseInt($("#player").css("left"));
       let shotX = positionX + 190;
       let topShot = top + 37;
 
@@ -115,7 +152,7 @@ function start() {
       $("#fire").css("top", topShot);
       $("#fire").css("left", shotX);
 
-      var timeShot = window.setInterval(executeShot, 30);
+      timeShot = window.setInterval(executeShot, 30);
     }
 
     function executeShot() {

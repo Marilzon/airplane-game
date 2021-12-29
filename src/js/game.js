@@ -5,6 +5,7 @@ function start() {
   let velocity = 5;
   let positionY = parseInt(Math.random() * 334);
   let letsShot = true;
+  let gameOver = false;
 
   const game = {};
   const KEY = {
@@ -92,40 +93,130 @@ function start() {
     }
   }
 
+  function resetEnemy2() {
+    let timeColission = window.setInterval(resetPositionEnemy, 5000);
+    function resetPositionEnemy() {
+      window.clearInterval(timeColission);
+      timeColission = null;
+
+      if (gameOver === false) {
+        $(gameContainer).append(`<div id="enemy2"></div>`);
+      }
+    }
+  }
+
+  function resetFriend() {
+    let timeFriend = window.setInterval(resetPositionFriend, 6000);
+    function resetPositionFriend() {
+      window.clearInterval(timeFriend);
+      timeFriend = null;
+
+      if (gameOver === false) {
+        $(gameContainer).append(`<div class="animationFriend" id="friend"></div>`);
+      }
+    }
+  }
+
   function collision() {
     let collisionPlayerEnemy1 = ($("#player").collision($("#enemy1")));
+    let collisionPlayerEnemy2 = ($("#player").collision($("#enemy2")));
+    let collisionFireEnemy1 = ($("#fire").collision($("#enemy1")));
+    let collisionFireEnemy2 = ($("#fire").collision($("#enemy2")));
+    let collisionPlayerFriend = ($("#player").collision($("#friend")));
+    let collisionEnemy2Friend = ($("#enemy2").collision($("#friend")));
 
     if (collisionPlayerEnemy1.length > 0) {
       let enemy1X = parseInt($("#enemy1").css("left"));
       let enemy1Y = parseInt($("#enemy1").css("top"));
 
-      explosionOne(enemy1X, enemy1Y);
+      explosion(enemy1X, enemy1Y);
 
       positionY = parseInt(Math.random() * 334);
       $("#enemy1").css("left", 694);
       $("#enemy1").css("top", positionY);
     }
+
+    if (collisionPlayerEnemy2.length > 0) {
+      let enemy2X = parseInt($("#enemy2").css("left"));
+      let enemy2Y = parseInt($("#enemy2").css("top"));
+
+      explosion(enemy2X, enemy2Y);
+
+      $("#enemy2").remove();
+
+      resetEnemy2();
+    }
+
+    if (collisionFireEnemy1.length > 0) {
+      let enemy1X = parseInt($("#enemy1").css("left"));
+      let enemy1Y = parseInt($("#enemy1").css("top"));
+
+      explosion(enemy1X, enemy1Y);
+      $("#fire").css("left", 950)
+
+      positionY = parseInt(Math.random() * 334);
+      $("#enemy1").css("left", 694);
+      $("enemy1").css("top", positionY);
+    }
+
+    if (collisionFireEnemy2.length > 0) {
+      let enemy2X = parseInt($("#enemy2").css("left"));
+      let enemy2Y = parseInt($("#enemy2").css("top"));
+      $("#enemy2").remove();
+
+      explosion(enemy2X, enemy2Y);
+      $("#fire").css("left", 950);
+
+      resetEnemy2();
+    }
+
+    if (collisionPlayerFriend.length > 0) {
+      resetFriend();
+      $("#friend").remove();
+    }
+
+    if (collisionEnemy2Friend.length > 0) {
+      let friendX = parseInt($("#friend").css("left"));
+      let friendY = parseInt($("#friend").css("top"));
+
+      friendDeath(friendX, friendY);
+
+      $("#friend").remove();
+      resetFriend();
+    }
   }
 
-  function explosionOne(enemy1X, enemy1Y) {
+  function explosion(enemy1X, enemy1Y) {
     $(gameContainer).append(`<div id="explosion"></div>`);
     $("#explosion").css(`background-image`, `url(src/assets/images/explosao.png)`);
 
-    let div =$("#explosion");
+    let div = $("#explosion");
 
     div.css("top", enemy1Y);
     div.css("left", enemy1X);
     div.animate({
-      width:200, opacity:0
+      width: 200, opacity: 0
     }, "slow");
 
     let timeExplosion = window.setInterval(removeExplosion, 1000);
-      function removeExplosion() {
-        div.remove();
-        window.clearInterval(timeExplosion);
-        timeExplosion = null;
-      }
+    function removeExplosion() {
+      div.remove();
+      window.clearInterval(timeExplosion);
+      timeExplosion = null;
     }
+  }
+
+  function friendDeath(friendX, friendY) {
+    $("#friendDeath").css("top", friendX);
+    $("#friendDeath").css("left", friendY);
+
+    let timeDeath = window.setInterval(removeDeath, 1000);
+
+    function removeDeath() {
+      window.clearInterval(timeDeath);
+      timeDeath = null;
+    }
+  }
 
   function loop() {
     moveBackground();

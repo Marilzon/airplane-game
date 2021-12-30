@@ -89,6 +89,15 @@ body {
   position: absolute;
 }
 
+#assets {
+  width: 450px;
+  height: 50px;
+  position: absolute;
+  left: 5px;
+  top: 590px;
+  color: #FFF;
+}
+
 #energy {
   width: 140px;
   height: 38px;

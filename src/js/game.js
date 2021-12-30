@@ -2,11 +2,28 @@ const startContainer = document.querySelector("#start-container");
 const gameContainer = document.querySelector("#game-container");
 
 function start() {
+  // VALUES MODIFIELDS in FUNCTIONS
   let velocity = 5;
   let positionY = parseInt(Math.random() * 334);
   let letsShot = true;
   let gameOver = false;
   let energyLenth = 3;
+  let points = 0;
+  let savedFriends = 0;
+  let lostFriends = 0;
+
+  // FIXED VALUES(AUDIO TYPE)
+  const gameSong = document.querySelector("#gameSong");
+  const fireSong = document.querySelector("#fireSong");
+  const explosionSong = document.querySelector("#explosionSong");
+  const gameOverSong = document.querySelector("#gameOverSong");
+  const loseSong = document.querySelector("#loseSong");
+  const rescueSong = document.querySelector("#rescueSong");
+
+  gameSong.addEventListener("ended", () => {
+    gameSong.currentTime = 0; gameSong.play();
+  }, false);
+  gameSong.play();
 
   const game = {};
   const KEY = {
@@ -20,7 +37,9 @@ function start() {
   $(gameContainer).append(`<div class="animationEnemy1" id="enemy1"></div>`);
   $(gameContainer).append(`<div id="enemy2"></div>`);
   $(gameContainer).append(`<div class="animationFriend" id="friend"></div>`);
+  $(gameContainer).append(`<div id="assets"></div>`);
   $(gameContainer).append(`<div id="energy"></div>`);
+
 
   game.press = [];
 
@@ -154,6 +173,7 @@ function start() {
     }
 
     if (collisionFireEnemy1.length > 0) {
+      points += 100;
       let enemy1X = parseInt($("#enemy1").css("left"));
       let enemy1Y = parseInt($("#enemy1").css("top"));
 
@@ -166,6 +186,7 @@ function start() {
     }
 
     if (collisionFireEnemy2.length > 0) {
+      points += 50;
       let enemy2X = parseInt($("#enemy2").css("left"));
       let enemy2Y = parseInt($("#enemy2").css("top"));
       $("#enemy2").remove();
@@ -177,11 +198,16 @@ function start() {
     }
 
     if (collisionPlayerFriend.length > 0) {
+      savedFriends++;
+      rescueSong.play();
       resetFriend();
       $("#friend").remove();
     }
 
     if (collisionEnemy2Friend.length > 0) {
+      lostFriends++;
+      loseSong.play();
+
       let friendX = parseInt($("#friend").css("left"));
       let friendY = parseInt($("#friend").css("top"));
 
@@ -193,6 +219,7 @@ function start() {
   }
 
   function explosion(enemy1X, enemy1Y) {
+    explosionSong.play();
     $(gameContainer).append(`<div id="explosion"></div>`);
     $("#explosion").css(`background-image`, `url(src/assets/images/explosao.png)`);
 
@@ -213,6 +240,7 @@ function start() {
   }
 
   function friendDeath(friendX, friendY) {
+    explosionSong.play();
     $("#friendDeath").css("top", friendX);
     $("#friendDeath").css("left", friendY);
 
@@ -232,12 +260,14 @@ function start() {
     moveFriend();
     collision();
     energy();
+    assets();
   }
 
   function shot() {
     let timeShot;
 
     if (letsShot === true) {
+      fireSong.play();
 
       letsShot = false;
 
@@ -264,6 +294,10 @@ function start() {
         letsShot = true;
       }
     }
+  }
+
+  function assets() {
+    $("#assets").html(`<h2>Pontos:  ${points} | Salvos: ${savedFriends} | Perdidos: ${lostFriends} </h2>`);
   }
 
   function energy() {

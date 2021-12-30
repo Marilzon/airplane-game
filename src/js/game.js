@@ -6,6 +6,7 @@ function start() {
   let positionY = parseInt(Math.random() * 334);
   let letsShot = true;
   let gameOver = false;
+  let energyLenth = 3;
 
   const game = {};
   const KEY = {
@@ -19,6 +20,7 @@ function start() {
   $(gameContainer).append(`<div class="animationEnemy1" id="enemy1"></div>`);
   $(gameContainer).append(`<div id="enemy2"></div>`);
   $(gameContainer).append(`<div class="animationFriend" id="friend"></div>`);
+  $(gameContainer).append(`<div id="energy"></div>`);
 
   game.press = [];
 
@@ -126,6 +128,8 @@ function start() {
     let collisionEnemy2Friend = ($("#enemy2").collision($("#friend")));
 
     if (collisionPlayerEnemy1.length > 0) {
+      energyLenth--;
+
       let enemy1X = parseInt($("#enemy1").css("left"));
       let enemy1Y = parseInt($("#enemy1").css("top"));
 
@@ -137,6 +141,8 @@ function start() {
     }
 
     if (collisionPlayerEnemy2.length > 0) {
+      energyLenth--;
+
       let enemy2X = parseInt($("#enemy2").css("left"));
       let enemy2Y = parseInt($("#enemy2").css("top"));
 
@@ -225,6 +231,7 @@ function start() {
     moveEnemy2();
     moveFriend();
     collision();
+    energy();
   }
 
   function shot() {
@@ -258,6 +265,25 @@ function start() {
       }
     }
   }
+
+  function energy() {
+    if (energyLenth  === 3) {
+      $("#energy").css(`background-image`, `url(src/assets/images/energia3.png)`);
+    }
+
+    if (energyLenth  === 2) {
+      $("#energy").css(`background-image`, `url(src/assets/images/energia2.png)`);
+    }
+
+    if (energyLenth  === 1) {
+      $("#energy").css(`background-image`, `url(src/assets/images/energia1.png)`);
+    }
+
+    if (energyLenth  === 0) {
+      $("#energy").css(`background-image`, `url(src/assets/images/energia0.png)`);
+    }
+  }
+
   game.timer = setInterval(loop, 30);
 }
 

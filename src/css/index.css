@@ -88,3 +88,11 @@ body {
   height: 87px;
   position: absolute;
 }
+
+#energy {
+  width: 140px;
+  height: 38px;
+  position: absolute;
+  left: 750px;
+  top: 7px;
+}

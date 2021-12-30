@@ -252,6 +252,9 @@ function start() {
     }
   }
 
+  game.timer = setInterval(loop, 30);
+
+
   function loop() {
     moveBackground();
     movePlayer();
@@ -315,10 +318,40 @@ function start() {
 
     if (energyLenth  === 0) {
       $("#energy").css(`background-image`, `url(src/assets/images/energia0.png)`);
+      endOfGame();
     }
   }
 
-  game.timer = setInterval(loop, 30);
+  function endOfGame() {
+    gameOver = true;
+    gameSong.pause();
+    gameOverSong.play();
+
+    window.clearInterval(game.timer);
+    game.timer = null;
+
+    $("#player").remove();
+    $("#enemy1").remove();
+    $("#enemy2").remove();
+    $("#friend").remove();
+    $("#assets").remove();
+
+    $(gameContainer).append(`<div id="end"></div>`);
+
+    $("#end").html(`
+      <h1 id="gameOverText">Fim de Jogo</h1>
+      <p>Sua pontuação foi ${points}</p>
+      <div id="playAgain" onClick="playAgain()">
+        <h3 id="playAgainText">Jogar jogamente</h3>
+      </div>
+    `);
+  }
+}
+
+function playAgain() {
+  gameOverSong.pause();
+  $("#end").remove();
+  start();
 }
 
 startContainer.addEventListener("click", start);

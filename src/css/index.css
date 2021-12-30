@@ -32,6 +32,7 @@ body {
   text-align: center;
   padding: 12px;
   border-radius: 3.5px;
+  cursor: pointer;
 }
 
 #game-title {
@@ -104,4 +105,24 @@ body {
   position: absolute;
   left: 750px;
   top: 7px;
+}
+
+#end {
+  width: 350px;
+  height: 200px;
+  background-color: #fff;
+  margin: 50px auto;
+  text-align: center;
+  padding: 5px;
+}
+
+#playAgainText{
+  font-family: Title;
+  font-size: 20px;
+  color: #603a03;
+  cursor: pointer;
+}
+#gameOverText {
+  font-family: Title;
+  color: #603a03;
 }
